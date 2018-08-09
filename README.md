@@ -8,7 +8,9 @@ All processes will run in one container and be managed by Docker. That means if 
 
 Use this Dockerfile at your own risk and please report any issues. Thx.
 
-## Build arguments with default values that can be overridden on build
+## Build arguments with default values
+Override on build with `--build-arg` parameter.
+
     GULDEN_UID=1000                    - User id for Gulden process
     GULDEN_GID=1000                    - Group id for Gulden process
     GULDEN_PASSWORD=pipasswd           - Password for Gulden RPC
@@ -23,7 +25,7 @@ Use this Dockerfile at your own risk and please report any issues. Thx.
 https://raw.githubusercontent.com/schneimi/rpi-gulden/master/Dockerfile
 
 ## Build from Dockerfile location
-Build G-DASH 1.02 and do all further configuration in G-DASH. This is the minimal build command as all other configuration can also be done via the G-DASH web interface.
+This is the minimal build command for G-DASH v1.02. All other configuration can also be done via the G-DASH web interface.
 
     docker build --force-rm --tag schneimi/rpi-gulden \
         --build-arg GULDEN_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1) \
@@ -37,8 +39,8 @@ Force a newer G-DASH version and already set some configuration.
         --build-arg GULDEN_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1) \
         .
 
-## Run container
-Choose the port (e.g. `8000`) where G-DASH should be accessible on your machine. This should match the port of your `GDASH_WEBLOCATION`.
+## Run the container
+Choose the port e.g. `8000` where G-DASH should be accessible on your machine. This should match the port of your `GDASH_WEBLOCATION`.
 
     docker run --name gulden --restart always \
         -p 0.0.0.0:9231:9231 \
