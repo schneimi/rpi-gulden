@@ -1,5 +1,5 @@
 # rpi-gulden
-G-Dash: Gulden Witness & Node Dashboard for Docker
+G-Dash: Gulden Witness & Node Dashboard for Docker on Raspberry Pi 3B+ (e.g. on [Hypriot](https://blog.hypriot.com/)).
 
 ## Introduction
 This is the attempt to port the G-Dash autoinstaller script from https://g-dash.nl/?page=download#autoinstall to Dockerfile and run G-DASH with Docker.
