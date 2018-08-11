@@ -32,7 +32,10 @@ Download the Dockerfile:
 
 ### Build the image
 
-Build the image from the Dockerfile location. Override the following default values on `docker build` using the `--build-arg` parameter.
+Build the image from the Dockerfile location.
+
+#### Build arguments
+Override the following default values on `docker build` using the `--build-arg` parameter.
 
 ```
 GULDEN_UID=1000                    - User id for Gulden process
@@ -43,7 +46,7 @@ GDASH_WEBLOCATION=http://localhost - The URL where G-Dash will be reachable
 APACHE_SERVER_NAME=localhost       - The Apache web server name
 
 ```
-
+#### Minimal build command
 This is the minimal build command for G-DASH v1.02 that sets a generated password.
 
 ```
@@ -53,6 +56,7 @@ docker build --force-rm --tag schneimi/rpi-gulden \
 
 ```
 
+#### Extended build command
 This is an example how to force a newer G-DASH version (may not exist yet at the time of reading) and already set the web location with your preferred port e.g. `8000`.
 
 ```
