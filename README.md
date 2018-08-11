@@ -71,7 +71,7 @@ docker build --force-rm --tag schneimi/rpi-gulden \
 
 ## Run the container
 
-The port where G-DASH should be reachable on your machine must be mapped to the internal port `80` of the apache web server. Replace `80:80` with e.g. `8000:80` if you want to use port 8000. This port should also match the port of your `GDASH_WEBLOCATION`.
+The port where G-DASH should be reachable on your machine must be mapped to the internal port `80` of the Apache web server. Replace `80:80` with e.g. `8000:80` if you want to use port 8000. This port should also match the port of your `GDASH_WEBLOCATION`.
 
 ```
 docker run --name gulden --restart always \
