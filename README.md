@@ -35,7 +35,7 @@ Download the Dockerfile:
 Build the image from the Dockerfile location.
 
 #### Build arguments
-Override the following default values on `docker build` using the `--build-arg` parameter.
+Control the build with following build arguments. Override the default values on `docker build` using the `--build-arg` parameter.
 
 ```
 GULDEN_UID=1000                    - User id for Gulden process
