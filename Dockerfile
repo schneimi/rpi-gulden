@@ -4,10 +4,10 @@ MAINTAINER Michael Schneidt <michael.schneidt@arcor.de>
 # declare non interactive mode to avoid error messages
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-# adding gulden repository to the raspbian sources
+# add gulden repository to the raspbian sources
 RUN sh -c 'echo "deb http://raspbian.gulden.com/repo/ stretch main" > /etc/apt/sources.list.d/gulden.list'
 
-# updating the system
+# update the system
 RUN apt-get update && apt-get -y upgrade
 
 # install packages
@@ -26,6 +26,7 @@ ARG GULDEN_GID=1000
 ARG GULDEN_PASSWORD=pi
 ARG GDASH_VERSION=1.02
 ARG GDASH_WEBLOCATION=http://localhost
+ARG APACHE_SERVER_NAME=localhost
 
 # environment variables
 ENV GULDEN_USER=pi \
@@ -40,7 +41,8 @@ ENV GULDEN_USER=pi \
     GDASH_DOWNLOAD=https://g-dash.nl/download/G-DASH-${GDASH_VERSION}.tar.gz \
     GDASH_TAR=G-DASH-${GDASH_VERSION}.tar.gz \
     GDASH_VERSION=$GDASH_VERSION \
-    GDASH_WEBLOCATION=$GDASH_WEBLOCATION
+    GDASH_WEBLOCATION=$GDASH_WEBLOCATION \
+    APACHE_SERVER_NAME=$APACHE_SERVER_NAME
 
 # create user required by gulden
 RUN groupadd -g $GULDEN_GID $GULDEN_USER &&\
@@ -49,7 +51,7 @@ RUN groupadd -g $GULDEN_GID $GULDEN_USER &&\
     chown -R $GULDEN_USER:$GULDEN_USER $GULDEN_HOME
 
 # configure web server
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf &&\
+RUN echo "ServerName ${APACHE_SERVER_NAME}" >> /etc/apache2/apache2.conf &&\
     rm /var/www/html/index.html
 
 # install gulden
