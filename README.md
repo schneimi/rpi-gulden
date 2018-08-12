@@ -8,7 +8,7 @@ This is the attempt to port the G-DASH autoinstaller script from <https://g-dash
 
 All process will run in one container that is managed by Docker. That means if the process stops the container also stops. The auto restart of the container is achieved by docker restart policy.
 
-This is not a final version, just a version that works for me. Also I am no Docker expert, so please use this Dockerfile at your own risk and please report any issues and help to improve it.
+This is not a final version, just a version that works for me. Also I am no Docker expert, so use this Dockerfile at your own risk and please report any issues and help to improve it.
 
 ## Dockerfile
 
@@ -16,7 +16,7 @@ The image is based on the latest [Raspbian Stretch](https://www.raspberrypi.org/
 
 ### Volumes
 
-The following volumes are defined to persist data.
+The following volumes are defined to persist data on your local host.
 
 ```
 /opt/gulden/datadir - Gulden configuration, wallet and block data
@@ -32,22 +32,25 @@ Download the Dockerfile:
 
 ### Build the image
 
-Build the image from the Dockerfile location.
+Switch to the location of the Dockerfile to build the image.
 
 #### Build arguments
-Control the build with following build arguments. Override the default values on `docker build` using the `--build-arg` parameter.
+
+Use the following arguments to control the build. Override the default values on `docker build` using the `--build-arg` parameter.
 
 ```
 GULDEN_UID=1000                    - User id for Gulden process
 GULDEN_GID=1000                    - Group id for Gulden process
-GULDEN_PASSWORD=pipasswd           - Password for Gulden RPC
+GULDEN_PASSWORD=pipasswd           - Password for internal Gulden RPC communication
 GDASH_VERSION=1.02                 - G-Dash version in case a newer version is available
 GDASH_WEBLOCATION=http://localhost - The URL where G-Dash will be reachable
 APACHE_SERVER_NAME=localhost       - The Apache web server name
 
 ```
+
 #### Minimal build command
-This is the minimal build command for G-DASH v1.02 that sets a generated password.
+
+This is the minimal build command for G-DASH v1.02 that sets a generated password for the internal Gulden RPC communication.
 
 ```
 docker build --force-rm --tag schneimi/rpi-gulden \
@@ -57,7 +60,8 @@ docker build --force-rm --tag schneimi/rpi-gulden \
 ```
 
 #### Extended build command
-This is an example how to force a newer G-DASH version (may not exist yet at the time of reading) and already set the web location with your preferred port e.g. `8000`.
+
+This is an example how to force a newer G-DASH version (may not exist at the time of reading) and already set the web location with your preferred port e.g. `8000`.
 
 ```
 docker build --force-rm --tag schneimi/rpi-gulden \
@@ -71,7 +75,7 @@ docker build --force-rm --tag schneimi/rpi-gulden \
 
 ## Run the container
 
-The port where G-DASH should be reachable on your machine must be mapped to the internal port `80` of the Apache web server. Replace `80:80` with e.g. `8000:80` if you want to use port 8000. This port should also match the port of your `GDASH_WEBLOCATION`.
+The port where G-DASH should be reachable on your local host must be mapped to the internal port `80` of the Apache web server. Replace `80:80` with e.g. `8000:80` if you want to use port 8000. This port should also match the port of your `GDASH_WEBLOCATION`.
 
 ```
 docker run --name gulden --restart always \
